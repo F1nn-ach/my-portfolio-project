@@ -1,0 +1,32 @@
+# Build stage
+FROM golang:1.25-alpine AS builder
+
+# Install certificates and git
+RUN apk add --no-cache git ca-certificates
+
+WORKDIR /app
+
+# Copy go.mod and go.sum files
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Build the worker binary
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o worker ./cmd/worker
+
+# Run stage
+FROM alpine:latest
+
+# Install certificates, timezone data, git, and docker-cli
+RUN apk --no-cache add ca-certificates tzdata git docker-cli
+
+WORKDIR /app
+
+# Copy the pre-built worker binary
+COPY --from=builder /app/worker .
+
+CMD ["./worker"]

@@ -1,0 +1,47 @@
+# Environment variables (Secrets)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.development
+.env.test
+.env.production
+
+# Dependencies
+node_modules/
+/app/frontend/node_modules/
+/app/backend/vendor/
+
+# Next.js build output
+.next/
+/app/frontend/.next/
+out/
+
+# Go build binaries and caches
+/app/backend/api-bin
+*.exe
+*.test
+/bin/
+
+# Local database/storage folders
+/storage/
+.supabase/
+supabase/.temp/
+
+
+# OS/IDE configs
+.DS_Store
+.vscode/
+.idea/
+*.suo
+*.sln
+*.swp
+
+# Temp build outputs
+/app/backend/tmp/
+/app/backend/api
+/app/backend/worker
+/app/backend/api.exe
+/app/backend/worker.exe
+
